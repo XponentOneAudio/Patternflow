@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: CC-BY-SA-4.0
-// Pattern: Mandelbrot Zoom
+// Pattern: Mandelbrot Lace
 // Author:  Martyn Quickenden
 // Lineage: original
 //
@@ -8,12 +8,12 @@
 // only in the constants under "The self-similar point".
 //
 // How it loops: the view is centred on the Misiurewicz point
-// c0 = -0.10109636 + 0.95628651i (the three-armed spiral). The orbit of 0
-// under z^2 + c0 lands on a repelling fixed point z* = -0.32759 + 0.57776i
-// after two steps, and near c0 the set is self-similar under multiplication by
-// that point's multiplier, lambda = 2 z* (|lambda| = 1.3283, arg = 119.55 deg).
-// One loop is lambda^3:
-// x2.344, turning -1.34 deg. That lands back on the picture it started
+// c0 = -0.60703102 + 0.60525138i, a lacy edge beside the period-3 bulb. The
+// orbit of 0 under z^2 + c0 lands on a repelling period-3 cycle after 3
+// steps, and near c0 the set is self-similar under multiplication by that
+// cycle's multiplier lambda (|lambda| = 4.5425, arg = -69.92 deg). One loop
+// is lambda itself:
+// x4.542, turning -69.92 deg. That lands back on the picture it started
 // from, and every pixel takes exactly 3 more iterations to escape. So the
 // camera zooms through one loop, jumps back, and subtracts the extra
 // iterations from the colour index. The seam differs from the previous frame
@@ -25,27 +25,27 @@
 // Knobs:  1 zoom    — speed and direction (turn left to zoom out forever)
 //         2 spin    — rotation, independent of the loop
 //         3 cycle   — colour cycling speed
-//         4 palette — rainbow, neon, sunset fire, electric blue
+//         4 palette — electric blue, rainbow, neon, sunset fire
 // Buttons reset their knob.
 #include "pf_module.h"
 
-namespace MandelbrotZoom {
-  const char* NAME = "Mandelbrot Zoom";
+namespace MandelbrotLace {
+  const char* NAME = "Mandelbrot Lace";
   const char* KNOB_LABELS[4] = {"zoom", "spin", "cycle", "palette"};
   constexpr bool ABSOLUTE_READY = true;
 
   // --- The self-similar point and its loop step ---
-  const float C0_RE = -0.10109636384562216f;
-  const float C0_IM = 0.9562865108091415f;
-  const float LOOP_LOG2_SCALE = 1.22891665f;  // log2 of the zoom per loop
-  const float LOOP_ANGLE      = -0.02339910f;  // turn per loop, radians
+  const float C0_RE = -0.607031022616088f;
+  const float C0_IM = 0.605251381278934f;
+  const float LOOP_LOG2_SCALE = 2.18348261f;  // log2 of the zoom per loop
+  const float LOOP_ANGLE      = -1.22039965f;  // turn per loop, radians
   const float LOOP_ITERS      = 3.0f;  // extra escape iterations per loop
-  const float SCALE0          = 1.0e-03f;  // half-width of the view at s = 0
+  const float SCALE0          = 1.9e-03f;  // half-width of the view at s = 0
 
   const int   MAX_ITER       = 160;
   const float BAILOUT2       = 256.0f;
-  const float BAND_DENSITY   = 0.12f;  // palette turns per iteration
-  const int   PALETTE_OFFSET = 0;  // palette the knob starts on
+  const float BAND_DENSITY   = 0.06f;  // palette turns per iteration
+  const int   PALETTE_OFFSET = 3;  // palette the knob starts on
 
   // Zoom is in doublings per second, not loops, so all four feel equally fast.
   const float ZOOM_MIN  = -0.6f,  ZOOM_MAX  = 0.6f;   // zoom doublings per second
@@ -180,6 +180,6 @@ namespace MandelbrotZoom {
 
     PFCanvas::present();
   }
-}  // namespace MandelbrotZoom
+}  // namespace MandelbrotLace
 
-PF_REGISTER_PATTERN(MandelbrotZoom)
+PF_REGISTER_PATTERN(MandelbrotLace)

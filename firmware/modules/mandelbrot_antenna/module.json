@@ -1,0 +1,13 @@
+{
+  "name": "Mandelbrot Antenna",
+  "namespace": "MandelbrotAntenna",
+  "author": "Martyn Quickenden",
+  "license": "CC-BY-SA-4.0",
+  "abi": 1,
+  "knobs": [
+    "zoom",
+    "spin",
+    "cycle",
+    "palette"
+  ]
+}
