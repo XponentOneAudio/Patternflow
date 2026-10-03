@@ -10,6 +10,7 @@ An integration is built against the **contracts** in `docs/`, never against the 
 | OSC over UDP | [`osc-spec.md`](../docs/osc-spec.md) | Max, TouchDesigner, Resolume, Processing; both directions, rich payloads |
 | Network MIDI | [`midi-spec.md`](../docs/midi-spec.md) | any DAW: the panel is a MIDI port |
 | MQTT | [`mqtt-spec.md`](../docs/mqtt-spec.md) | home and venue buses, Home Assistant, Node-RED, boards following each other |
+| Video in (DDP / Art-Net over UDP) | [`video-in-spec.md`](../docs/video-in-spec.md) | pixels from TouchDesigner, Resolume, MadMapper; experimental, `video` composition |
 
 OSC, MIDI and audio-react ship in the **Audio** edition and MQTT in the **Performance** edition, installed from [the shelf](https://patternflow.work/editions) in one click; no firmware rebuild is needed on the user's side.
 
@@ -18,6 +19,7 @@ OSC, MIDI and audio-react ship in the **Audio** edition and MQTT in the **Perfor
 | Folder | Host | Contract | Status |
 | :--- | :--- | :--- | :--- |
 | [`ableton/`](ableton/README.md) | Ableton Live, via a Max for Live device | OSC | in-tree, maintained |
+| [`touchdesigner/`](touchdesigner/README.md) | TouchDesigner, via a Python DAT | video in | in-tree, experimental |
 
 The Home Assistant integration (custom component and dashboard card, by [@bendobos](https://github.com/bendobos)) left this repository on 2026-09-03 and is maintained by its author separately. A link will be added here when there is one to add.
 

@@ -4,6 +4,14 @@ All notable changes to Patternflow will be documented in this file, newest first
 
 ## [Unreleased]
 
+### Firmware
+
+- **Video from TouchDesigner, over Wi-Fi (experimental).** A new feature, `features/video_in/`, takes 128 × 64 RGB frames as DDP (UDP 4048) or Art-Net (UDP 6454, ArtDmx and ArtSync) and shows them in place of the running pattern. The pattern keeps running underneath and is back 1.5 s after the stream stops. It sits on the existing `composeFrame` hook, so the core is unchanged. Packets come off the network on lwIP's task into three buffers that are swapped by pointer, so the frame being drawn is never one the network is writing. The Art-Net start universe and channels per universe (510 or 512) are set at `POST /api/video-in` and kept in NVS. Status gains `videoIn`, caps gains `video_in`, and the NETWORK screen gains a **VID** row. It ships in a new composition, `video` (video in + OSC), which is not on the shelf. Contract: `docs/video-in-spec.md`. The packet parsers were checked on a host against the sender's own packets. It has not yet been built with PlatformIO or run on a panel.
+
+### Integrations
+
+- **`integrations/touchdesigner/`**: `patternflow_stream.py` sends a TOP to the panel from an Execute DAT in three lines, as DDP or Art-Net, and runs from a terminal as a test-pattern sender.
+
 ## [3.10.5] - 2026-10-02
 
 ### Firmware

@@ -9,6 +9,7 @@ What is here, and what is not. The rule for the split: **a guide somebody follow
 - [`midi-spec.md`](midi-spec.md) — the panel as a network MIDI port
 - [`mqtt-spec.md`](mqtt-spec.md) — MQTT topics, both directions, the roles, and why the channel decides whether a write sticks
 - [`audio-ws-spec.md`](audio-ws-spec.md) — the audio-react WebSocket the browser extension and the phone app speak
+- [`video-in-spec.md`](video-in-spec.md) — pixels over UDP (DDP / Art-Net) from TouchDesigner and the like; experimental
 - [`pfst-v2-spec.md`](pfst-v2-spec.md) — the `.pfs` show table, with test vectors in [`pfst-v2-vectors/`](pfst-v2-vectors/)
 - [`panel-compatibility.md`](panel-compatibility.md) — a buying guide first (which HUB75 panels light up and which stay dark), then the reference for other sizes
 

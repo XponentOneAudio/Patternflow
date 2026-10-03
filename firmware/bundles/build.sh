@@ -60,10 +60,10 @@ env_of() {
 # was proven — "OSC / AUD" absent from the default image because the compiler
 # folded the branch away — done every time instead of once by hand.
 #
-# Not every composition is on the shelf. `clock` and `midi` are bundles the
+# Not every composition is on the shelf. `clock`, `midi` and `video` are bundles the
 # tree keeps buildable so a core change cannot break them silently; the shelf
 # (release.py's EDITIONS) is the maintainer's shorter list.
-COMPOSITIONS="default audio performance clock midi"
+COMPOSITIONS="default audio performance clock midi video"
 declare -A MARK=(
   [osc]='/patternflow/knob'
   [audio]='[AUDIO] Ready'
@@ -75,6 +75,7 @@ declare -A MARK=(
   [midi_usb]='[MIDI] usb device'
   [ble]='[BLE] setup advertising'
   [clock]='[CLOCK] /clock ready'
+  [video_in]='[VIDEO] listening'
 )
 declare -A WANT=(
   [default]=''
@@ -82,6 +83,7 @@ declare -A WANT=(
   [performance]='mqtt show weather clock'
   [clock]='clock'
   [midi]='midi midi_usb'
+  [video]='osc video_in'
 )
 
 known_composition() { [ -n "${1:-}" ] && [ -n "${WANT[$1]+x}" ]; }
@@ -103,7 +105,7 @@ stage() {
 # carries exactly its composition's markers.
 scan_image() {
   local ed="$1" bin="$2" verdict=ok detail="" f want have
-  for f in osc audio audio_in mqtt show weather midi midi_usb ble clock; do
+  for f in osc audio audio_in mqtt show weather midi midi_usb ble clock video_in; do
     case " ${WANT[$ed]} " in *" $f "*) want=1 ;; *) want=0 ;; esac
     if grep -qaF -- "${MARK[$f]}" "$bin"; then have=1; else have=0; fi
     if [ "$want" != "$have" ]; then

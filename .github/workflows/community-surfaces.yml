@@ -39,7 +39,7 @@ jobs:
           fail=0
           for d in integrations/*/; do
             if [ ! -f "$d/README.md" ]; then echo "::error::$d has no README.md"; fail=1; continue; fi
-            grep -Eq 'rest-api\.md|osc-spec\.md|midi-spec\.md|mqtt-spec\.md|audio-ws-spec\.md|pfst-v2-spec\.md' "$d/README.md" \
-              || { echo "::error::$d/README.md does not name a contract in docs/ (rest-api, osc-spec, midi-spec, mqtt-spec, audio-ws-spec, pfst-v2-spec)"; fail=1; }
+            grep -Eq 'rest-api\.md|osc-spec\.md|midi-spec\.md|mqtt-spec\.md|audio-ws-spec\.md|pfst-v2-spec\.md|video-in-spec\.md' "$d/README.md" \
+              || { echo "::error::$d/README.md does not name a contract in docs/ (rest-api, osc-spec, midi-spec, mqtt-spec, audio-ws-spec, pfst-v2-spec, video-in-spec)"; fail=1; }
           done
           exit $fail
