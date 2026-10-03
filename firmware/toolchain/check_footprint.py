@@ -5,7 +5,7 @@ python firmware/toolchain/check_footprint.py [--update] [--dir DIR] [--only EDIT
 Run `firmware/bundles/build.sh all` first; it leaves one .elf per edition next to
 the .bin in ~/pf-build-editions.
 
-WHY. CI builds five compositions and then prints `ls -l *.bin`, which is flash — and
+WHY. CI builds every composition and then prints `ls -l *.bin`, which is flash — and
 flash is not the scarce resource on this board. Internal DRAM is. It is what the
 console, lwIP and every feature allocate from, and what is left for them is the
 residual of the internal pool after .data, .bss and IRAM have taken theirs. So a
@@ -63,12 +63,15 @@ IRAM_END = 0x403E0000
 # Again the same day: static DRAM +304 in every edition - the crash record's 296 B
 # (224 of them the SDK's own strings behind esp_core_dump_get_summary, 64 the
 # breadcrumb in .noinit) and 8 B of loop-sync state.
+# 2026-10-03: video added (video_in + osc), first pin - static DRAM +800 over
+# default, IRAM unchanged; the frame buffer is allocated at runtime, not static.
 PINS = {
     "default": (141576, 71471),
     "audio": (161104, 71951),
     "performance": (158080, 71471),
     "clock": (141856, 71471),
     "midi": (154168, 70671),
+    "video": (142376, 71471),
 }
 
 # Enough that an intentional, well-understood adjustment does not fire the check
