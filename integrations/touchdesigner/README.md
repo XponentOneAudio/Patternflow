@@ -99,9 +99,27 @@ can see that the picture is the right way up.
 ## Tested with
 
 The packet formats were checked against the firmware's own parser on a host
-(DDP; Art-Net at 510 and 512 channels per universe), pixel for pixel. **Not
-yet run against a panel or inside TouchDesigner.** Please say which firmware
-and TouchDesigner build you used when you try it.
+(DDP; Art-Net at 510 and 512 channels per universe), pixel for pixel.
+
+On a panel, 2026-10-03: the `video` composition v0.1.0 (project 3.10.5, build
+`ae782477`) on a v3.9 board, fed by `patternflow_stream.py` from a Windows PC
+on 5 GHz through the same router; the panel was on 2.4 GHz at -52 dBm, with
+idle pings already averaging ~135 ms. Not yet run inside TouchDesigner.
+
+| sent | DDP on the panel | Art-Net on the panel |
+|---|---|---|
+| 10 fps | ~10 fps, API responsive | ~10 fps, API responsive |
+| 15 fps | ~15 fps, pings ~300 ms | ~14 fps, pings ~60 ms |
+| 30 fps | 17-18 fps, pings > 2 s | 18-19 fps, API mostly unreachable |
+
+Both protocols topped out at the same ~3.5 Mbps of pixels, so on this network
+the limit was the 2.4 GHz link, not the parser: past it the access point
+queues the excess, the panel's console and API answer seconds late, and the
+picture keeps playing for several seconds after the sender stops while the
+queue drains. Below it, the pattern came back 1.6-1.9 s after the sender
+stopped (the 1.5 s timeout plus polling). If the console goes slow while you
+stream, lower the frame rate. Please say which firmware, network and
+TouchDesigner build you used when you try it.
 
 ## License
 
