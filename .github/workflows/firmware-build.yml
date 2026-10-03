@@ -9,10 +9,10 @@ name: Firmware builds
 # The 3.9.1 cycle moved the network onto its own core across a dozen files
 # and reached dev without a compiler ever seeing it in CI. That is what this
 # workflow closes: `build.sh one <composition>` - default, audio, performance,
-# clock, midi - each in its own job, so the wall clock is one build rather
-# than five in a row, and each image scanned for the marker strings that prove
+# clock, midi, video - each in its own job, so the wall clock is one build
+# rather than six in a row, and each image scanned for the marker strings that prove
 # it carries exactly its features. Not every composition is on the shelf
-# (clock and midi are compositions the tree keeps buildable); every one of
+# (clock, midi and video are compositions the tree keeps buildable); every one of
 # them has to compile, because the point of the feature seam is that a core
 # change breaks nothing it cannot see.
 #
@@ -44,7 +44,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        composition: [default, audio, performance, clock, midi]
+        composition: [default, audio, performance, clock, midi, video]
     steps:
       - uses: actions/checkout@v4
 
@@ -54,7 +54,7 @@ jobs:
 
       # The xtensa toolchain and the Arduino core are ~700 MB; the build tree
       # under ~/pf-build keeps the framework's objects between compositions
-      # and between runs. Keyed on platformio.ini, which names both. Five jobs
+      # and between runs. Keyed on platformio.ini, which names both. Six jobs
       # share the key: the first to finish saves it, the rest find it saved.
       - name: Cache PlatformIO packages and the build tree
         uses: actions/cache@v4
